@@ -1,10 +1,12 @@
 package script;
 
+import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 import generic.BaseTest;
 import generic.Excel;
+import page.EnterTimeTrackPage;
 import page.LoginPage;
 
 public class Test1 extends BaseTest{
@@ -12,19 +14,13 @@ public class Test1 extends BaseTest{
 	public void testA() {
 		
 		LoginPage l=new LoginPage(driver);
-		l.setUserName("bhanu");
-		
-		String u=getValue("URL");
-		Reporter.log(u,true);
-		
-		String title=driver.getTitle();
-		Reporter.log(title,true);
-		
-		String v=Excel.getData("./data/book1.xlsx","sheet1", 0, 0);
-		Reporter.log(v,true);
-		
-		String v2=Excel.getData("./data/book1.xlsx","sheet2", 1, "UserName");
-		Reporter.log(v2,true);
+		l.setUserName("admin");
+		l.setPassword("manager");
+		l.clickLoginButton();
+		EnterTimeTrackPage e=new EnterTimeTrackPage(driver);
+		boolean result = e.verifyHomePageIsDisplayed(wait,"Enter");
+//		Assert.assertEquals(result, true);
+		Assert.assertTrue(result);
 	}
 
 }
